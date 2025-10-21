@@ -9,7 +9,25 @@
 	"compatibility_date": "2025-10-11",
 	"observability": {
 		"enabled": true
-	}
+	},
+	"dev": {
+		"ip": "127.0.0.1",
+		"port": 8787,
+		"local_protocol": "http",
+		"host": "localhost"
+	},
+	
+	// ====================================================================
+	// BINDING A KV AGREGADO AQUÍ
+	// ====================================================================
+	"kv_namespaces": [
+		{
+			"binding": "MI_KV", // Este es el nombre de la variable (env.MI_KV_PRINCIPAL)
+			"id": "9ba20a5e35ce46a396e22bf5d205014e" // Tu ID de KV
+		}
+	]
+	// ====================================================================
+	
 	/**
 	 * Smart Placement
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

@@ -1,8 +1,8 @@
 // Archivo: src/index.ts
 
-import { insertFragmentById } from './utils/inserter'; // <-- Importar la función
+
 import {getLayout} from './layout.js'
-import { fetchHandler } from "./auth/fetchhandler";
+import { fetchHandler } from "./fetchhandler";
 
 const BASE_HTML = `
 <!DOCTYPE html>
@@ -21,7 +21,7 @@ const BASE_HTML = `
 export default {
     async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
         
-        const response = await fetchHandler(request);        
+        const response = await fetchHandler(env,request);        
         return response;
         // let layout = getLayout(request);
         // //layout = await insertFragmentById(layout, 'layoutcontent', modifiedHtml)

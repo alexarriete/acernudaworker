@@ -1,9 +1,4 @@
-// Configuración B2C
-const tenantName = "acernuda";
-const policy = "B2C_1_login";
-const clientId = "18a5b714-4c54-456b-99b9-3365964a726e";
-const tenantId = "3ac92374-a28d-4635-9898-00ae2dd1458a";
-const issuer = `https://${tenantName}.b2clogin.com/${tenantId}/v2.0/`;
+import {b2cValues} from "../../utils/constant";
 
 // Helper para base64url
 function base64url(buffer) {
@@ -42,8 +37,8 @@ export async function authMiddleware(request, url) {
     const codeVerifier = generateRandomString();
     const codeChallenge = await generateCodeChallenge(codeVerifier);
 
-    const loginUrl = `https://${tenantName}.b2clogin.com/${tenantName}.onmicrosoft.com/${policy}/oauth2/v2.0/authorize?` +
-      `client_id=${clientId}` +
+    const loginUrl = `https://${b2cValues.tenantName}.b2clogin.com/${b2cValues.tenantName}.onmicrosoft.com/${b2cValues.policy}/oauth2/v2.0/authorize?` +
+      `client_id=${b2cValues.clientId}` +
       `&response_type=code` +
       `&redirect_uri=${encodeURIComponent(redirectUri)}` +
       `&scope=openid profile offline_access` +
@@ -71,11 +66,11 @@ export async function authMiddleware(request, url) {
     if (!match) return new Response("Missing code_verifier", { status: 400 });
     const codeVerifier = match[1];
 
-    const tokenResponse = await fetch(`https://${tenantName}.b2clogin.com/${tenantName}.onmicrosoft.com/${policy}/oauth2/v2.0/token`, {
+    const tokenResponse = await fetch(`https://${b2cValues.tenantName}.b2clogin.com/${b2cValues.tenantName}.onmicrosoft.com/${b2cValues.policy}/oauth2/v2.0/token`, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
-        client_id: clientId,
+        client_id: b2cValues.clientId,
         code: code,
         redirect_uri: redirectUri,
         grant_type: "authorization_code",
@@ -102,7 +97,14 @@ export async function authMiddleware(request, url) {
   return null;
 }
 
-export function isValidIssuer(iss){
-    console.log(iss);
-    return iss === issuer;
+export function logout(request){
+   const response = new Response(null, {
+        status: 302,
+        headers: {
+          "Location": "/", // redirige al inicio
+          "Set-Cookie": `id_token=; Path=/; HttpOnly; Secure; SameSite=Lax; Expires=Thu, 01 Jan 1970 00:00:00 GMT`
+        }
+      });
+
+      return response;
 }

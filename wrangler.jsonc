@@ -6,7 +6,7 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "wrangler-test",
 	"main": "src/index.ts",
-	"compatibility_date": "2025-10-11",
+	"compatibility_date": "2025-10-08",
 	"observability": {
 		"enabled": true
 	},
@@ -22,8 +22,8 @@
 	// ====================================================================
 	"kv_namespaces": [
 		{
-			"binding": "MI_KV", // Este es el nombre de la variable (env.MI_KV_PRINCIPAL)
-			"id": "9ba20a5e35ce46a396e22bf5d205014e" // Tu ID de KV
+			"binding": "KV_User", // Este es el nombre de la variable (env.MI_KV_PRINCIPAL)
+			"id": "8ef8bf7431154630b61f453ba2bd4d1b" // Tu ID de KV
 		}
 	]
 	// ====================================================================

@@ -1,4 +1,6 @@
-export function getLayout(request){
+import { insertFragmentById } from './utils/inserter';
+
+export function getLayout(request, user){
     let html = `
     <!DOCTYPE html>
     <html lang="es">
@@ -88,5 +90,19 @@ export function getLayout(request){
     const url = new URL(request.url);                
     const hostName = url.hostname;
     html = html.replaceAll("$origin$",hostName);
+    html = replaceUserData(html, user);
     return html;
+}
+
+export async function insertMainContent(layout, html){
+  layout = await insertFragmentById(layout, 'layoutcontent', html);
+  return layout;
+}
+
+function replaceUserData(layout, user){
+  if(user !== null){
+      layout = layout.replace("auth/login", "perfil");
+      layout = layout.replace('"login"', user.name);     
+  }      
+  return layout;
 }

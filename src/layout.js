@@ -60,7 +60,7 @@ export function getLayout(request){
                 <a class="nav-link" href="$searchUrl$" title="Buscar"><i class="bi bi-search"></i></a>
               </li>              
               <li class="nav-item">
-                <a class="nav-link" href="auth/login" title="$login$" >
+                <a class="nav-link" href="auth/login" title="login" >
                   <i class="bi bi-person"></i>
                 </a>
               </li>

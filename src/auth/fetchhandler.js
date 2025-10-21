@@ -14,7 +14,10 @@ export async function fetchHandler(request) {
   if (protectedResponse) return protectedResponse;
     
   // Ruta pública
-  if(isAuthenticated) layout = layout.replace("auth/login", "perfil");
+  if(isAuthenticated){
+    layout = layout.replace("auth/login", "perfil");
+    layout = layout.replace('"login"', "nombre de usuario");
+  } 
   
   if (url.pathname === "/" || url.pathname === "/index.html") {
     return new Response(layout, { headers: { "Content-Type": "text/html" } });
